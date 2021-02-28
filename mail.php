@@ -6,12 +6,11 @@
         $name = strip_tags(trim($_POST["name"]));
 				$name = str_replace(array("\r","\n"),array(" "," "),$name);
         $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
-        $lname = trim($_POST["lname"]);
         $subject = trim($_POST["subject"]);
         $message = trim($_POST["message"]);
 
         // Check that data was sent to the mailer.
-        if ( empty($name) OR empty($subject) OR empty($lname) OR empty($message) OR !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if ( empty($name) OR empty($subject) OR empty($message) OR !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             // Set a 400 (bad request) response code and exit.
             http_response_code(400);
             echo "Please complete the form and try again.";
@@ -27,7 +26,6 @@
 
         // Build the email content.
         $email_content = "First Name: $name\n";
-        $email_content = "Last Name: $lname\n";
         $email_content .= "Email: $email\n\n";
         $email_content .= "Subject: $subject\n\n";
         $email_content .= "Message:\n$message\n";
